@@ -88,7 +88,13 @@ export default function PostDetailsPage() {
         </CardHeader>
         <CardContent>
           <div className="prose max-w-none">
-            <p className="mb-4">{post.description}</p>
+            <p className="mb-4">
+              {post.description.split("\n").map((paragraph, index) => (
+                <p key={index} className="mb-4">
+                  {paragraph}
+                </p>
+              ))}
+            </p>
           </div>
         </CardContent>
         <CardFooter className="flex w-full flex-col items-start gap-4">

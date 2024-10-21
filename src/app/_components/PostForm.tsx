@@ -25,6 +25,7 @@ export const PostForm = () => {
   const router = useRouter();
   const params = useParams();
   const postId = params.id as string;
+  const utils = api.useUtils();
 
   const { data: post, isLoading } = api.post.getPostById.useQuery(
     {
@@ -46,6 +47,7 @@ export const PostForm = () => {
 
   const updateMutation = api.post.update.useMutation({
     onSuccess: () => {
+      utils.post.getPostById.invalidate({ id: Number(postId) });
       router.push(`/post/${postId}`);
     },
     onError: () => {

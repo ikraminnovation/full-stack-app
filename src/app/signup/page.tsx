@@ -19,6 +19,7 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { AlertCircle } from "lucide-react";
 
 export default function SignUpPage() {
+  const [isLoading, setIsLoading] = useState(false);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -34,6 +35,8 @@ export default function SignUpPage() {
       setError("Passwords do not match");
       return;
     }
+
+    setIsLoading(true);
 
     try {
       await axios.post("/api/auth/signup", {
@@ -56,6 +59,8 @@ export default function SignUpPage() {
       }
     } catch {
       setError("An error occurred during registration");
+    } finally {
+      setIsLoading(false);
     }
   };
 

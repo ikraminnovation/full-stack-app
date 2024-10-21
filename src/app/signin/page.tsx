@@ -18,6 +18,7 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { AlertCircle } from "lucide-react";
 
 export default function SignInPage() {
+  const [isLoading, setIsLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -25,18 +26,25 @@ export default function SignInPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsLoading(true);
     setError(null);
 
-    const result = await signIn("credentials", {
-      redirect: false,
-      email,
-      password,
-    });
+    try {
+      const result = await signIn("credentials", {
+        redirect: false,
+        email,
+        password,
+      });
 
-    if (result?.error) {
-      setError("Invalid email or password");
-    } else {
-      router.push("/"); // Redirect to dashboard on successful login
+      if (result?.error) {
+        setError("Invalid email or password");
+      } else {
+        router.push("/"); // Redirect to dashboard on successful login
+      }
+    } catch {
+      setError("Failed to login");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -82,8 +90,8 @@ export default function SignInPage() {
                 <AlertDescription>{error}</AlertDescription>
               </Alert>
             )}
-            <Button type="submit" className="mt-6 w-full">
-              Sign In
+            <Button type="submit" className="mt-6 w-full" disabled={isLoading}>
+              {isLoading ? "Signing in..." : "Sign In"}
             </Button>
           </form>
         </CardContent>

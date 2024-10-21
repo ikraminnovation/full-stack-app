@@ -48,6 +48,10 @@ export default function PostDetailsPage() {
     },
   );
 
+  if (!session.data?.user) {
+    router.push("/signin");
+  }
+
   if (isLoading || isFetching) {
     return (
       <div className="flex min-h-[calc(100svh-80px)] items-center justify-center">
@@ -103,7 +107,7 @@ export default function PostDetailsPage() {
                   className={cn("mr-1 h-4 w-4", {
                     "fill-red-500 text-red-500": post.likes
                       .map((item) => item.userId)
-                      .includes(session.data!.user!.id),
+                      .includes(session?.data?.user.id ?? ""),
                   })}
                 />
                 Like

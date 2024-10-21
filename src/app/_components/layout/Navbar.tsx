@@ -78,7 +78,10 @@ const NavbarComponent = () => {
                       <Link href="/settings">Settings</Link>
                     </DropdownMenuItem>
                     <DropdownMenuSeparator />
-                    <DropdownMenuItem onClick={() => signOut()}>
+                    <DropdownMenuItem
+                      className="cursor-pointer"
+                      onClick={() => signOut()}
+                    >
                       Sign out
                     </DropdownMenuItem>
                   </DropdownMenuContent>

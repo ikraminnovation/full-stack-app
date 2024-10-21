@@ -37,7 +37,6 @@ export default function PostDetailsPage() {
   const {
     data: post,
     isLoading,
-    isFetching,
     isError,
   } = api.post.getPostById.useQuery(
     {
@@ -48,11 +47,7 @@ export default function PostDetailsPage() {
     },
   );
 
-  if (!session.data?.user) {
-    router.push("/signin");
-  }
-
-  if (isLoading || isFetching) {
+  if (isLoading) {
     return (
       <div className="flex min-h-[calc(100svh-80px)] items-center justify-center">
         <p className="text-lg">Loading...</p>
@@ -62,7 +57,7 @@ export default function PostDetailsPage() {
 
   if (isError) {
     return (
-      <div className="flex min-h-[calc(100svh-80px)] items-center justify-center">
+      <div className="flex min-h-[calc(100svh-80px)] flex-col justify-center gap-4 px-6 lg:px-8">
         <Alert variant="destructive">
           <AlertCircle className="h-4 w-4" />
           <AlertTitle>Error</AlertTitle>
@@ -70,6 +65,9 @@ export default function PostDetailsPage() {
             Failed to load post. Please try again later.
           </AlertDescription>
         </Alert>
+        <Button onClick={() => router.push("/")} className="max-w-max">
+          Go to Home
+        </Button>
       </div>
     );
   }

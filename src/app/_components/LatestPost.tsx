@@ -24,7 +24,10 @@ export function LatestPost() {
             <div className="flex items-center space-x-4">
               <Avatar>
                 <AvatarImage
-                  src={`https://avatar.vercel.sh/${post.createdBy.name}`}
+                  src={
+                    post.createdBy.image ??
+                    `https://avatar.vercel.sh/${post.createdBy.name}`
+                  }
                 />
                 <AvatarFallback>{post.createdBy.name}</AvatarFallback>
               </Avatar>

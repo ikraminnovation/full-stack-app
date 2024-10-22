@@ -18,8 +18,6 @@ export async function POST(req: Request) {
       );
     }
 
-    // Call the signup logic
-    console.log("signup data: ", name, email, password);
     // Check if user already exists
     const existingUser = await db.user.findUnique({
       where: { email: email.toLowerCase() },

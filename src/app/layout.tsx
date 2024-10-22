@@ -5,6 +5,7 @@ import { type Metadata } from "next";
 
 import { TRPCReactProvider } from "@/trpc/react";
 import { Navbar } from "./_components/layout/Navbar";
+import { Toaster } from "sonner";
 
 export const metadata: Metadata = {
   title: "Full stack app",
@@ -22,6 +23,7 @@ export default function RootLayout({
           <Navbar />
           {children}
         </TRPCReactProvider>
+        <Toaster position="top-center" />
       </body>
     </html>
   );
